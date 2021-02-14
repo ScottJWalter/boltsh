@@ -11,8 +11,8 @@
     "@oclif/command": "^1.8.0",
     "@oclif/config": "^1.17.0",
     "@oclif/plugin-help": "^3.2.2",
-    "ascii-table": "^0.0.9",
-    "neo4j-driver": "^4.2.2"
+    "neo4j-driver": "^4.2.2",
+    "ascii-table": "0.0.9"
   },
   "devDependencies": {
     "@oclif/test": "^1.2.8",
