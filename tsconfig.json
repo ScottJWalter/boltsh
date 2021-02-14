@@ -14,12 +14,8 @@
     "target": "es2017",
     "composite": true,
     "sourceMap": true,
-    "typeRoots": [
-      "src/types",
-      "node_modules/@types"
-    ],
   },
   "include": [
-    "./src/**/*.ts"
+    "./src/**/*"
   ]
 }

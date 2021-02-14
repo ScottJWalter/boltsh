@@ -1,7 +1,7 @@
 import {Command, flags} from '@oclif/command'
 import * as neo4j from 'neo4j-driver'
-
-const AsciiTable = require('ascii-table')
+import {sprintf} from 'sprintf-js'
+import Table from 'cli-table'
 
 class Boltsh extends Command {
   static description = 'Execute Cypher Queries via Bolt'
@@ -17,7 +17,6 @@ Tom Hanks
 
   static flags = {
     version: flags.version({char: 'v'}),
-    // add --help flag to show CLI version
     help: flags.help({char: 'h'}),
 
     address: flags.string({char: 'a', description: 'bolt address', required: true, default: 'bolt://localhost'}),
@@ -40,15 +39,23 @@ Tom Hanks
     const records = result.records;
     const data = {heading: records[0].keys, rows: records.map(r => r.keys.map(k => r.get(k)))}
     if (flags.table) {
-      const table = AsciiTable.factory(data)
+      const table = new Table({
+        chars: {'mid': '', 'left-mid': '', 'mid-mid': '', 'right-mid': ''}
+      })
+      table.push(data)
       this.log(table.toString())
     } else {
       this.log(data.heading.join("\t"))
       data.rows.forEach(r => this.log(r.join("\t")))
     }
-    this.log(`Returned ${records.length} row(s) in ${result.summary.resultAvailableAfter.toNumber() + result.summary.resultConsumedAfter.toNumber()} ms.`)
-    driver.close()
+    this.log(
+      sprintf(`Returned %i row(s) in %i ms.`,
+        records.length,
+        result.summary.resultAvailableAfter.toNumber() + result.summary.resultConsumedAfter.toNumber()
+      )
+    )
 
+    driver.close()
   }
 }
 
