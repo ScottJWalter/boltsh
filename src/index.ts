@@ -2,6 +2,7 @@ import {Command, flags} from '@oclif/command'
 import * as neo4j from 'neo4j-driver'
 import {sprintf} from 'sprintf-js'
 import Table from 'cli-table'
+import colors from 'colors'
 
 class Boltsh extends Command {
   static description = 'Execute Cypher Queries via Bolt'
@@ -16,8 +17,8 @@ Tom Hanks
   ]
 
   static flags = {
-    version: flags.version({char: 'v'}),
-    help: flags.help({char: 'h'}),
+    version: flags.version({char: 'v', description: 'version number'}),
+    help: flags.help({char: 'h', description: 'this help'}),
 
     address: flags.string({char: 'a', description: 'bolt address', required: true, default: 'bolt://localhost'}),
     user: flags.string({char: 'u', description: 'neo4j user', required: true, default: 'neo4j'}),
@@ -45,13 +46,15 @@ Tom Hanks
       table.push(data)
       this.log(table.toString())
     } else {
-      this.log(data.heading.join("\t"))
+      this.log(colors.bold.yellow(data.heading.join("\t")))
       data.rows.forEach(r => this.log(r.join("\t")))
     }
     this.log(
-      sprintf(`Returned %i row(s) in %i ms.`,
-        records.length,
-        result.summary.resultAvailableAfter.toNumber() + result.summary.resultConsumedAfter.toNumber()
+      colors.bold.white(
+        sprintf(`Returned %i row(s) in %i ms.`,
+          records.length,
+          result.summary.resultAvailableAfter.toNumber() + result.summary.resultConsumedAfter.toNumber()
+        )
       )
     )
 
