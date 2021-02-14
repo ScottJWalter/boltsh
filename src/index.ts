@@ -41,7 +41,15 @@ Tom Hanks
     const data = {heading: records[0].keys, rows: records.map(r => r.keys.map(k => r.get(k)))}
     if (flags.table) {
       const table = new Table({
-        chars: {'mid': '', 'left-mid': '', 'mid-mid': '', 'right-mid': ''}
+        chars: {'mid': '', 'left-mid': '', 'mid-mid': '', 'right-mid': ''},
+        style: {
+          'padding-left': 1,
+          'padding-right': 1,
+          head: ['yellow'],
+          border: ['white'],
+          compact: false,
+        },
+        head: [args.query],
       })
       table.push(data)
       this.log(table.toString())
