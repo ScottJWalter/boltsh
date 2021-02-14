@@ -49,7 +49,8 @@
     "lint": "tsc -p test --noEmit && tslint -p test -t stylish",
     "posttest": "yarn run lint",
     "prepublishOnly": "yarn run build",
-    "test": "mocha --forbid-only \"test/**/*.test.ts\""
+    "test": "mocha --forbid-only \"test/**/*.test.ts\"",
+    "updateToCurrent": "ncu -u && npm install"
   },
   "types": "lib/index.d.ts"
 }
