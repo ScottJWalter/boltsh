@@ -13,6 +13,7 @@
     "@oclif/plugin-help": "^3.2.2",
     "cli-table": "^0.3.4",
     "colors": "^1.4.0",
+    "esm": "^3.2.25",
     "neo4j-driver": "^4.2.2",
     "sprintf-js": "^1.1.2"
   },
@@ -22,16 +23,19 @@
     "@types/chai": "^4.2.15",
     "@types/cli-table": "^0.3.0",
     "@types/mocha": "^8.2.0",
-    "@types/node": "^14.14.27",
+    "@types/node": "^14.14.28",
     "@types/sprintf": "^0.1.0",
     "@types/sprintf-js": "^1.1.2",
     "chai": "^4.3.0",
-    "eslint-plugin-prettier": "^3.3.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-prettier": "^2.7.0",
     "mocha": "^8.3.0",
+    "nyc": "^15.1.0",
+    "prettier": "^2.2.1",
     "ts-node": "9",
     "tslib": "^2.1.0",
     "tslint": "^5.20.1",
-    "typescript": "^4.1.5"
+    "typescript": "^3.9.9"
   },
   "engines": {
     "node": ">=8.0.0"
@@ -45,7 +49,7 @@
     "oclif"
   ],
   "license": "MIT",
-  "main": "lib/index.js",
+  "main": "lib/src/index.js",
   "oclif": {
     "bin": "boltsh"
   },
@@ -53,10 +57,10 @@
   "scripts": {
     "build": "rm -rf lib && tsc",
     "lint": "tsc -p test --noEmit && tslint -p test -t stylish",
-    "posttest": "yarn run lint",
-    "prepublishOnly": "yarn run build",
-    "test": "mocha --forbid-only \"test/**/*.test.ts\"",
+    "posttest": "npm run lint",
+    "prepublishOnly": "npm run build",
+    "test": "nyc --extension .ts mocha --timeout 15000 --forbid-only \"test/**/*.test.ts\"",
     "updateToCurrent": "ncu -u && npm install"
   },
-  "types": "lib/index.d.ts"
+  "types": "lib/src/index.d.ts"
 }

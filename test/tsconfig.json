@@ -1,5 +1,6 @@
 {
   "extends": "../tsconfig",
+  "type": "module",
   "compilerOptions": {
     "sourceMap": true
   },
