@@ -15,6 +15,7 @@
     "colors": "^1.4.0",
     "esm": "^3.2.25",
     "neo4j-driver": "^4.2.2",
+    "per-env": "^1.0.2",
     "sprintf-js": "^1.1.2"
   },
   "devDependencies": {
